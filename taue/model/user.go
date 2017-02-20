@@ -1,8 +1,8 @@
 package model
 
 type User struct {
-	id            int
-	name          string
-	slackName     string
-	contributions int
+	ID            int
+	Name          string
+	SlackName     string
+	Contributions int
 }

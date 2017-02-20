@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// FarmerPrint "hello farmer"
 func FamerPrint() {
-	fmt.Println("hello world")
+	fmt.Println("hello farmer")
 }
