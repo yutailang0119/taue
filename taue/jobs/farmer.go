@@ -1,10 +1,10 @@
-package job
+package jobs
 
 import (
 	"fmt"
 )
 
-// FarmerPrint "hello farmer"
+// FarmerPrint is "hello farmer"
 func FamerPrint() {
 	fmt.Println("hello farmer")
 }
