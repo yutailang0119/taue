@@ -9,8 +9,8 @@ import (
 	"github.com/Yu-taro/taue/taue/models"
 )
 
-// LoadUsersFromJSON load users profile from Users.json
-func LoadUsersFromJSON() (users []models.User) {
+// loadUsersFromJSON load users profile from Users.json
+func loadUsersFromJSON() (users []models.User) {
 
 	file, err := ioutil.ReadFile("./resources/Users.json")
 
