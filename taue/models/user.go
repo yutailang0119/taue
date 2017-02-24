@@ -7,9 +7,10 @@ type User struct {
 	SlackName        string `json:"slackName"`
 	GitHubName       string `json:"githubName"`
 	GitHubToken      string `json:"githubToken"`
-	GitLabName       string `json:"gitlabName"`
+	GitLabID         int    `json:"gitlabId"`
 	GitLabToken      string `json:"gitlabToken"`
 	GitHubEvents     []GitHubEvent
+	GitLabEvents     []GitLabEvent
 	GitHubContributs int
 	GitLabContributs int
 }

@@ -1,14 +1,15 @@
 package models
 
+// GitHubEvent is https://api.github.com/users/:username/event
 type GitHubEvent struct {
-	ID        string `json:"id"`
-	Type      string `json:"type"`
-	Actor     actor  `json:"actor"`
-	Repo      repo   `json:"repo"`
-	CreatedAt string `json:"created_at"`
+	ID        string      `json:"id"`
+	Type      string      `json:"type"`
+	Actor     githubActor `json:"actor"`
+	Repo      githubRepo  `json:"repo"`
+	CreatedAt string      `json:"created_at"`
 }
 
-type actor struct {
+type githubActor struct {
 	ID           int    `json:"id"`
 	Login        string `json:"login"`
 	DisplayLogin string `json:"display_login"`
@@ -17,7 +18,7 @@ type actor struct {
 	AvatarURL    string `json:"avatar_url"`
 }
 
-type repo struct {
+type githubRepo struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 	URL  string `json:"url"`
