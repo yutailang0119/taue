@@ -1,5 +1,9 @@
 package models
 
+import (
+	"time"
+)
+
 // GitHubEvent is https://api.github.com/users/:username/event
 type GitHubEvent struct {
 	ID        string      `json:"id"`
@@ -22,4 +26,10 @@ type githubRepo struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 	URL  string `json:"url"`
+}
+
+func (githubEvent GitHubEvent) createdAt() time.Time {
+	const githubTimeLayout = "2006-01-02T15:04:05Z"
+	t, _ := time.Parse(githubTimeLayout, githubEvent.CreatedAt)
+	return t
 }

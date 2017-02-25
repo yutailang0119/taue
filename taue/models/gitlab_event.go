@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 // GitLabEvent is https://gitlab.com/api/v3/users/:id/events/
 type GitLabEvent struct {
 	Title          string      `json:"title"`
@@ -21,4 +23,10 @@ type gitlabAutor struct {
 	Status    string `json:"status"`
 	AvatarURL string `json:"avatar_url"`
 	WebURL    string `json:"web_url"`
+}
+
+func (gitlabEvent GitLabEvent) createdAt() time.Time {
+	const gitlabTimeLayout = "2006-01-02T15:04:05.000Z"
+	t, _ := time.Parse(gitlabTimeLayout, gitlabEvent.CreatedAt)
+	return t
 }

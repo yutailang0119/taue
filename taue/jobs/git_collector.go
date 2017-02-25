@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"sync"
 
 	"github.com/Yu-taro/taue/taue/models"
 )
@@ -16,18 +17,34 @@ func GetContributs() {
 
 	users := loadUsersFromJSON()
 
+	ch := make(chan models.User, 10)
+	var wg sync.WaitGroup
+
 	for _, user := range users {
-		// fmt.Printf("%d : %s\n", user.ID, user.Name)
-		getGitHubContributs(user)
-		getGitLabContributs(user)
+		wg.Add(1)
+		go getGitActivity(&wg, &user, ch)
+	}
+
+	wg.Wait()
+	close(ch)
+
+	for data := range ch {
+		fmt.Printf("%s : %d\n", data.GitHubName, data.TodayContributs())
 	}
 
 }
 
-func getGitHubContributs(user models.User) {
+func getGitActivity(wg *sync.WaitGroup, user *models.User, ch chan models.User) {
+	getGitHubContributs(user)
+	getGitLabContributs(user)
+	ch <- *user
+	wg.Done()
+}
+
+func getGitHubContributs(user *models.User) {
 	value := url.Values{}
 	value.Add("access_token", user.GitHubToken)
-	value.Add("pre_page", "100")
+	value.Add("per_page", "100")
 
 	const baseURL = "https://api.github.com"
 	urlString := baseURL + "/users/" + user.GitHubName + "/events"
@@ -59,13 +76,10 @@ func getGitHubContributs(user models.User) {
 	}
 
 	user.GitHubEvents = githubEvents
-	for _, githubEvent := range user.GitHubEvents {
-		fmt.Printf("%s : %s\n", githubEvent.Actor.Login, githubEvent.Type)
-	}
 
 }
 
-func getGitLabContributs(user models.User) {
+func getGitLabContributs(user *models.User) {
 	value := url.Values{}
 	value.Add("private_token", user.GitLabToken)
 	value.Add("per_page", "100")
@@ -101,7 +115,5 @@ func getGitLabContributs(user models.User) {
 	}
 
 	user.GitLabEvents = gitlabEvents
-	for _, gitlabEvent := range user.GitLabEvents {
-		fmt.Printf("%s : %s\n", gitlabEvent.Title, gitlabEvent.CreatedAt)
-	}
+
 }
