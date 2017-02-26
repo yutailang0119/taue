@@ -12,12 +12,10 @@ import (
 	"github.com/Yu-taro/taue/taue/models"
 )
 
-// GetContributs from API
-func GetContributs() {
+// getContributs from API
+func getContributs(users []models.User) (completeHandler []models.User) {
 
-	users := loadUsersFromJSON()
-
-	ch := make(chan models.User, 10)
+	ch := make(chan models.User, len(users))
 	var wg sync.WaitGroup
 
 	for _, user := range users {
@@ -29,8 +27,10 @@ func GetContributs() {
 	close(ch)
 
 	for data := range ch {
-		fmt.Printf("%s : %d\n", data.Name, data.TodayContributs())
+		completeHandler = append(completeHandler, data)
 	}
+
+	return completeHandler
 
 }
 

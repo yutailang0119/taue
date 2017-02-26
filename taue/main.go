@@ -6,6 +6,6 @@ import (
 
 func main() {
 
-	jobs.GetContributs()
+	jobs.ReportTaue()
 
 }
