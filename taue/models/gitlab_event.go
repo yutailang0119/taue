@@ -30,3 +30,11 @@ func (gitlabEvent GitLabEvent) createdAt() time.Time {
 	t, _ := time.Parse(gitlabTimeLayout, gitlabEvent.CreatedAt)
 	return t
 }
+
+func (gitlabEvent GitLabEvent) isTodayContribute() bool {
+	today := time.Now()
+	yesterday := today.AddDate(0, 0, -1)
+
+	thisCreatedAt := gitlabEvent.createdAt()
+	return thisCreatedAt.Year() == yesterday.Year() && thisCreatedAt.Month() == yesterday.Month() && thisCreatedAt.Day() == yesterday.Day()
+}

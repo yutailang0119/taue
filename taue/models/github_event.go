@@ -33,3 +33,11 @@ func (githubEvent GitHubEvent) createdAt() time.Time {
 	t, _ := time.Parse(githubTimeLayout, githubEvent.CreatedAt)
 	return t
 }
+
+func (githubEvent GitHubEvent) isTodayContribute() bool {
+	today := time.Now()
+	yesterday := today.AddDate(0, 0, -1)
+
+	thisCreatedAt := githubEvent.createdAt()
+	return thisCreatedAt.Year() == yesterday.Year() && thisCreatedAt.Month() == yesterday.Month() && thisCreatedAt.Day() == yesterday.Day()
+}

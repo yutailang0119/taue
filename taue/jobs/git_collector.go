@@ -29,7 +29,7 @@ func GetContributs() {
 	close(ch)
 
 	for data := range ch {
-		fmt.Printf("%s : %d\n", data.GitHubName, data.TodayContributs())
+		fmt.Printf("%s : %d\n", data.Name, data.TodayContributs())
 	}
 
 }

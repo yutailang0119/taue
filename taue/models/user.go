@@ -1,10 +1,5 @@
 package models
 
-import (
-	"fmt"
-	"time"
-)
-
 // User defind a user from json
 type User struct {
 	ID           int    `json:"id"`
@@ -18,31 +13,27 @@ type User struct {
 	GitLabEvents []GitLabEvent
 }
 
-// TodayGitHubContributs is count today activity on GitHub
-func (user User) TodayGitHubContributs() int {
+// todayGitHubContributs is count today activity on GitHub
+func (user User) todayGitHubContributs() int {
 	var count int
-	today := time.Now()
-	yesterday := today.AddDate(0, 0, -1)
-	fmt.Println(yesterday)
 
 	for _, githubEvent := range user.GitHubEvents {
-		fmt.Println(githubEvent.createdAt())
-		count++
+		if githubEvent.isTodayContribute() {
+			count++
+		}
 	}
 
 	return count
 }
 
-// TodayGitLabContributs is count today activity on GitLab
-func (user User) TodayGitLabContributs() int {
+// todayGitLabContributs is count today activity on GitLab
+func (user User) todayGitLabContributs() int {
 	var count int
-	today := time.Now()
-	yesterday := today.AddDate(0, 0, -1)
-	fmt.Println(yesterday)
 
 	for _, gitlabEvent := range user.GitLabEvents {
-		fmt.Println(gitlabEvent.createdAt())
-		count++
+		if gitlabEvent.isTodayContribute() {
+			count++
+		}
 	}
 
 	return count
@@ -50,5 +41,5 @@ func (user User) TodayGitLabContributs() int {
 
 // TodayContributs is count today activity on GitHub and GitLab
 func (user User) TodayContributs() int {
-	return user.TodayGitHubContributs() + user.TodayGitLabContributs()
+	return user.todayGitHubContributs() + user.todayGitLabContributs()
 }
