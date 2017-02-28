@@ -12,7 +12,7 @@ import (
 // loadUsersFromJSON load users profile from Users.json
 func loadUsersFromJSON() (users []models.User) {
 
-	file, err := ioutil.ReadFile("./resources/Users.json")
+	file, err := ioutil.ReadFile("taue/resources/Users.json")
 
 	if err != nil {
 		fmt.Println(err.Error())
