@@ -25,7 +25,7 @@ func postSlack(users []models.User) {
 		Username:  "taue",
 		IconEmoji: ":seedling:",
 		IconURL:   "",
-		Channel:   "#general",
+		Channel:   "",
 		LinkNames: 1,
 	}
 
