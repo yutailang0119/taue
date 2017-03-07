@@ -17,7 +17,7 @@ func postSlack(users []models.User) {
 
 	var text string
 	for _, user := range users {
-		text = "@" + user.SlackName + " " + strconv.Itoa(user.TodayContributs()) + "回\n"
+		text = text + "@" + user.SlackName + " " + strconv.Itoa(user.TodayContributs()) + "回\n"
 	}
 
 	parameters := models.SlackParameters{

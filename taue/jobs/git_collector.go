@@ -12,8 +12,8 @@ import (
 	"github.com/Yu-taro/taue/taue/models"
 )
 
-// getContributs from API
-func getContributs(users []models.User) (completeHandler []models.User) {
+// getContributes from API
+func getContributes(users []models.User) (completeHandler []models.User) {
 
 	ch := make(chan models.User, len(users))
 	var wg sync.WaitGroup
@@ -35,13 +35,13 @@ func getContributs(users []models.User) (completeHandler []models.User) {
 }
 
 func getGitActivity(wg *sync.WaitGroup, user *models.User, ch chan models.User) {
-	getGitHubContributs(user)
-	getGitLabContributs(user)
+	getGitHubContributes(user)
+	getGitLabContributes(user)
 	ch <- *user
 	wg.Done()
 }
 
-func getGitHubContributs(user *models.User) {
+func getGitHubContributes(user *models.User) {
 	value := url.Values{}
 	value.Add("access_token", user.GitHubToken)
 	value.Add("per_page", "100")
@@ -79,7 +79,7 @@ func getGitHubContributs(user *models.User) {
 
 }
 
-func getGitLabContributs(user *models.User) {
+func getGitLabContributes(user *models.User) {
 	value := url.Values{}
 	value.Add("private_token", user.GitLabToken)
 	value.Add("per_page", "100")

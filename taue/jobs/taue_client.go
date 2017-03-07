@@ -5,7 +5,7 @@ func ReportTaue() {
 
 	targetUsers := loadUsersFromJSON()
 
-	users := getContributs(targetUsers)
+	users := getContributes(targetUsers)
 
 	postSlack(users)
 
