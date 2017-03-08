@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 // GitLabEvent is https://gitlab.com/api/v3/users/:id/events/
 type GitLabEvent struct {

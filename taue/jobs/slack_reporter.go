@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -19,6 +20,7 @@ func postSlack(users []models.User) {
 	for _, user := range users {
 		text = text + "@" + user.SlackName + " " + strconv.Itoa(user.TodayContributs()) + "回\n"
 	}
+	log.Print(text)
 
 	parameters := models.SlackParameters{
 		Text:      text,
