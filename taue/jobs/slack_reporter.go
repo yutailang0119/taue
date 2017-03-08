@@ -4,21 +4,23 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
-	"os"
 	"strconv"
 
 	"github.com/Yu-taro/taue/taue/models"
 )
 
 func postSlack(users []models.User) {
-	webHookURL := "https://hooks.slack.com/services/" + os.Getenv("SLACK_WEBHOOK_ENDPOINT")
+	//webHookURL := "https://hooks.slack.com/services/" + os.Getenv("SLACK_WEBHOOK_ENDPOINT")
+	webHookURL := "https://hooks.slack.com/services/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"
 
 	var text string
 	for _, user := range users {
 		text = text + "@" + user.SlackName + " " + strconv.Itoa(user.TodayContributs()) + "回\n"
 	}
+	log.Print(text)
 
 	parameters := models.SlackParameters{
 		Text:      text,

@@ -20,7 +20,7 @@ func getContributes(users []models.User) (completeHandler []models.User) {
 
 	for _, user := range users {
 		wg.Add(1)
-		go getGitActivity(&wg, &user, ch)
+		go getGitActivity(&wg, user, ch)
 	}
 
 	wg.Wait()
@@ -34,14 +34,14 @@ func getContributes(users []models.User) (completeHandler []models.User) {
 
 }
 
-func getGitActivity(wg *sync.WaitGroup, user *models.User, ch chan models.User) {
-	getGitHubContributes(user)
-	getGitLabContributes(user)
-	ch <- *user
+func getGitActivity(wg *sync.WaitGroup, user models.User, ch chan models.User) {
+	user.GitHubEvents = getGitHubContributes(user)
+	user.GitLabEvents = getGitLabContributes(user)
+	ch <- user
 	wg.Done()
 }
 
-func getGitHubContributes(user *models.User) {
+func getGitHubContributes(user models.User) (githubEvents []models.GitHubEvent) {
 	if user.GitHubName == "" {
 		return
 	}
@@ -74,18 +74,18 @@ func getGitHubContributes(user *models.User) {
 		return
 	}
 
-	var githubEvents []models.GitHubEvent
+	//var githubEvents []models.GitHubEvent
 	err = json.Unmarshal(body, &githubEvents)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
 
-	user.GitHubEvents = githubEvents
+	return githubEvents
 
 }
 
-func getGitLabContributes(user *models.User) {
+func getGitLabContributes(user models.User) (gitlabEvents []models.GitLabEvent) {
 	if user.GitLabID == 0 {
 		return
 	}
@@ -118,14 +118,12 @@ func getGitLabContributes(user *models.User) {
 		return
 	}
 
-	var gitlabEvents []models.GitLabEvent
-
 	err = json.Unmarshal(body, &gitlabEvents)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
 
-	user.GitLabEvents = gitlabEvents
+	return gitlabEvents
 
 }
