@@ -92,7 +92,7 @@ func getGitLabContributes(user *models.User) {
 
 	value := url.Values{}
 	value.Add("per_page", "100")
-	if user.GitLabToken == "" {
+	if user.GitLabToken != "" {
 		value.Add("private_token", user.GitLabToken)
 	}
 
