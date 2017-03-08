@@ -42,9 +42,15 @@ func getGitActivity(wg *sync.WaitGroup, user *models.User, ch chan models.User) 
 }
 
 func getGitHubContributes(user *models.User) {
+	if user.GitHubName == "" {
+		return
+	}
+
 	value := url.Values{}
-	value.Add("access_token", user.GitHubToken)
 	value.Add("per_page", "100")
+	if user.GitHubToken != "" {
+		value.Add("access_token", user.GitHubToken)
+	}
 
 	const baseURL = "https://api.github.com"
 	urlString := baseURL + "/users/" + user.GitHubName + "/events"
@@ -80,9 +86,15 @@ func getGitHubContributes(user *models.User) {
 }
 
 func getGitLabContributes(user *models.User) {
+	if user.GitLabID == 0 {
+		return
+	}
+
 	value := url.Values{}
-	value.Add("private_token", user.GitLabToken)
 	value.Add("per_page", "100")
+	if user.GitLabToken == "" {
+		value.Add("private_token", user.GitLabToken)
+	}
 
 	const baseURL = "https://gitlab.com/api/v3"
 	urlString := baseURL + "/users/" + strconv.Itoa(user.GitLabID) + "/events"
