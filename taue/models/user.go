@@ -13,8 +13,8 @@ type User struct {
 	GitLabEvents []GitLabEvent
 }
 
-// todayGitHubContributs is count today activity on GitHub
-func (user User) todayGitHubContributs() int {
+// todayGitHubContributesCount is count today activity on GitHub
+func (user User) todayGitHubContributesCount() int {
 	var count int
 
 	for _, githubEvent := range user.GitHubEvents {
@@ -26,8 +26,8 @@ func (user User) todayGitHubContributs() int {
 	return count
 }
 
-// todayGitLabContributs is count today activity on GitLab
-func (user User) todayGitLabContributs() int {
+// todayGitLabContributesCount is count today activity on GitLab
+func (user User) todayGitLabContributesCount() int {
 	var count int
 
 	for _, gitlabEvent := range user.GitLabEvents {
@@ -39,7 +39,7 @@ func (user User) todayGitLabContributs() int {
 	return count
 }
 
-// TodayContributs is count today activity on GitHub and GitLab
-func (user User) TodayContributs() int {
-	return user.todayGitHubContributs() + user.todayGitLabContributs()
+// TodayContributesCount is count today activity on GitHub and GitLab
+func (user User) TodayContributesCount() int {
+	return user.todayGitHubContributesCount() + user.todayGitLabContributesCount()
 }
