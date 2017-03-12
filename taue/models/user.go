@@ -18,7 +18,7 @@ func (user User) todayGitHubContributesCount() int {
 	var count int
 
 	for _, githubEvent := range user.GitHubEvents {
-		if githubEvent.isTodayContribute() {
+		if githubEvent.isTodayContribute() && githubEvent.isCountable() {
 			count++
 		}
 	}
