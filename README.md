@@ -1,4 +1,4 @@
-# Taue is reporting developer activity (GitHub, GitLab, etc...) to Slack
+# taue is reporting developer activity (GitHub, GitLab, etc...) to Slack
 
 * Go 1.8~
 * It is assumed that work on Heroku
@@ -41,7 +41,37 @@ $ heroku config:set SLACK_WEBHOOK_ENDPOINT="xxxxxxxxxxxxxxxx" --app "app_name"
 
 3. Set a scheduler
 
+## taue support private git repositories on GitHub and GitLab
+
+### GitHub
+Please get your [private access token](https://github.com/settings/tokens) and checked `repo:status`.
+Add this token  to `githubToken` on Users.json.
+
+### GitLab
+GitLab API is a little unique.
+First please get your [private token](https://gitlab.com/profile/personal_access_tokens).
+* `Expires at`: token expired date. If it blank is indefinitely.
+* `Scopes`: check `api Access your API`
+Second call this API (https://gitlab.com/api/v3/projects?private_token=xxxxxxxxxxxxx) with token.
+```javascript
+[
+    {
+    ...
+        "owner": {
+            "name": "",
+            "username": "",
+            "id": 123456,
+            "state": "active",
+            "avatar_url": "",
+            "web_url": ""
+        }
+    ...
+    },
+    { ... }
+]
+```
+This id is `gitlabId`.
+Finally add this id and token to `gitlabId`, `gitlabToken` on Users.json.
+
 ## License
 [taue](https://github.com/Yu-taro/taue) is released under the [Apache License 2.0](LICENSE).
-
-
