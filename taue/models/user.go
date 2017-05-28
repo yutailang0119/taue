@@ -1,14 +1,19 @@
 package models
 
+import (
+	//"database/sql"
+)
+import "database/sql"
+
 // User defind a user from json
 type User struct {
-	ID           int    `json:"id"`
-	Name         string `json:"name"`
-	SlackName    string `json:"slackName"`
-	GitHubName   string `json:"githubName"`
-	GitHubToken  string `json:"githubToken"`
-	GitLabID     int    `json:"gitlabId"`
-	GitLabToken  string `json:"gitlabToken"`
+	ID           int    `db:"id"`
+	Name         string `db:"name"`
+	SlackName    string `db:"slack_name"`
+	GitHubName   sql.NullString `db:"github_name"`
+	GitHubToken  sql.NullString `db:"github_token"`
+	GitLabID     sql.NullInt64    `db:"gitlab_id"`
+	GitLabToken  sql.NullString `db:"gitlab_token"`
 	GitHubEvents []GitHubEvent
 	GitLabEvents []GitLabEvent
 }

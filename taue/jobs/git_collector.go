@@ -42,18 +42,18 @@ func getGitActivity(wg *sync.WaitGroup, user models.User, ch chan models.User) {
 }
 
 func getGitHubContributes(user models.User) (githubEvents []models.GitHubEvent) {
-	if user.GitHubName == "" {
+	if !user.GitHubName.Valid && user.GitHubName.String == "" {
 		return
 	}
 
 	value := url.Values{}
 	value.Add("per_page", "100")
-	if user.GitHubToken != "" {
-		value.Add("access_token", user.GitHubToken)
+	if user.GitHubToken.Valid && user.GitHubToken.String != "" {
+		value.Add("access_token", user.GitHubToken.String)
 	}
 
 	const baseURL = "https://api.github.com"
-	urlString := baseURL + "/users/" + user.GitHubName + "/events"
+	urlString := baseURL + "/users/" + user.GitHubName.String + "/events"
 
 	resp, err := http.Get(urlString + "?" + value.Encode())
 	if err != nil {
@@ -86,18 +86,18 @@ func getGitHubContributes(user models.User) (githubEvents []models.GitHubEvent) 
 }
 
 func getGitLabContributes(user models.User) (gitlabEvents []models.GitLabEvent) {
-	if user.GitLabID == 0 {
+	if !user.GitLabID.Valid {
 		return
 	}
 
 	value := url.Values{}
 	value.Add("per_page", "100")
-	if user.GitLabToken != "" {
-		value.Add("private_token", user.GitLabToken)
+	if user.GitHubToken.Valid && user.GitLabToken.String != "" {
+		value.Add("private_token", user.GitLabToken.String)
 	}
 
 	const baseURL = "https://gitlab.com/api/v3"
-	urlString := baseURL + "/users/" + strconv.Itoa(user.GitLabID) + "/events"
+	urlString := baseURL + "/users/" + strconv.FormatInt(user.GitLabID.Int64, 10) + "/events"
 
 	resp, err := http.Get(urlString + "?" + value.Encode())
 	if err != nil {
