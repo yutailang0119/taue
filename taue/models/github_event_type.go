@@ -3,7 +3,7 @@ package models
 type githubEventType int
 
 const (
-	CommitCommentEvent githubEventType = iota
+	CommitCommentEvent            githubEventType = iota
 	CreateEvent
 	DeleteEvent
 	DeploymentEvent

@@ -5,6 +5,7 @@ package models
 import (
 	"fmt"
 )
+
 const _githubEventType_name = "CommitCommentEventCreateEventDeleteEventDeploymentEventDeploymentStatusEventDownloadEventFollowEventForkEventForkApplyEventGistEventGollumEventIssueCommentEventIssuesEventLabelEventMemberEventMembershipEventMilestoneEventOrganizationEventOrgBlockEventPageBuildEventProjectCardEventProjectColumnEventProjectEventPublicEventPullRequestEventPullRequestReviewEventPullRequestReviewCommentEventPushEventReleaseEventRepositoryEventStatusEventTeamEventTeamAddEventWatchEvent"
 
 var _githubEventType_index = [...]uint16{0, 18, 29, 40, 55, 76, 89, 100, 109, 123, 132, 143, 160, 171, 181, 192, 207, 221, 238, 251, 265, 281, 299, 311, 322, 338, 360, 389, 398, 410, 425, 436, 445, 457, 467}

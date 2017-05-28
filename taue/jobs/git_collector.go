@@ -35,25 +35,25 @@ func getContributes(users []models.User) (completeHandler []models.User) {
 }
 
 func getGitActivity(wg *sync.WaitGroup, user models.User, ch chan models.User) {
-	user.GitHubEvents = getGitHubContributes(user)
-	user.GitLabEvents = getGitLabContributes(user)
+	//user.GitHubEvents = getGitHubContributes(user)
+	//user.GitLabEvents = getGitLabContributes(user)
 	ch <- user
 	wg.Done()
 }
 
 func getGitHubContributes(user models.User) (githubEvents []models.GitHubEvent) {
-	if !user.GitHubName.Valid && user.GitHubName.String == "" {
+	if user.GitHubName == "" {
 		return
 	}
 
 	value := url.Values{}
 	value.Add("per_page", "100")
-	if user.GitHubToken.Valid && user.GitHubToken.String != "" {
-		value.Add("access_token", user.GitHubToken.String)
+	if user.GitHubToken != "" {
+		value.Add("access_token", user.GitHubToken)
 	}
 
 	const baseURL = "https://api.github.com"
-	urlString := baseURL + "/users/" + user.GitHubName.String + "/events"
+	urlString := baseURL + "/users/" + user.GitHubName + "/events"
 
 	resp, err := http.Get(urlString + "?" + value.Encode())
 	if err != nil {
@@ -86,18 +86,18 @@ func getGitHubContributes(user models.User) (githubEvents []models.GitHubEvent) 
 }
 
 func getGitLabContributes(user models.User) (gitlabEvents []models.GitLabEvent) {
-	if !user.GitLabID.Valid {
+	if user.GitLabID == 0 {
 		return
 	}
 
 	value := url.Values{}
 	value.Add("per_page", "100")
-	if user.GitHubToken.Valid && user.GitLabToken.String != "" {
-		value.Add("private_token", user.GitLabToken.String)
+	if user.GitLabToken != "" {
+		value.Add("private_token", user.GitLabToken)
 	}
 
 	const baseURL = "https://gitlab.com/api/v3"
-	urlString := baseURL + "/users/" + strconv.FormatInt(user.GitLabID.Int64, 10) + "/events"
+	urlString := baseURL + "/users/" + strconv.FormatInt(user.GitLabID, 10) + "/events"
 
 	resp, err := http.Get(urlString + "?" + value.Encode())
 	if err != nil {

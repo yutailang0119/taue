@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"strconv"
 
 	"github.com/Yu-taro/taue/taue/models"
 )
@@ -18,7 +17,7 @@ func postSlack(users []models.User) {
 
 	var text string
 	for _, user := range users {
-		text = text + "@" + user.SlackName + " " + strconv.Itoa(user.TodayContributesCount()) + "回\n"
+		text = text + "@" + user.SlackName + " " + user.Contributes() + "\n"
 	}
 	log.Print(text)
 
