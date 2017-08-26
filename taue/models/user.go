@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/Yu-taro/taue/taue/db"
+	"github.com/yutailang0119/taue/taue/db"
 )
 
 type UserList []User

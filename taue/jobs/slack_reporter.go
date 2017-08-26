@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/Yu-taro/taue/taue/models"
+	"github.com/yutailang0119/taue/taue/models"
 )
 
 func postSlack(users []models.User) {

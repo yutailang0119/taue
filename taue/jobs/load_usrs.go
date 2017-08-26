@@ -4,8 +4,8 @@ import (
 	"log"
 	_ "github.com/lib/pq"
 
-	"github.com/Yu-taro/taue/taue/models"
-	"github.com/Yu-taro/taue/taue/db"
+	"github.com/yutailang0119/taue/taue/models"
+	"github.com/yutailang0119/taue/taue/db"
 )
 
 // loadUsers is that load users profile from DataBase

@@ -19,7 +19,7 @@
     "id": 0,
     "name": "yutailang0119",
     "slackName": "yutaro",
-    "githubName": "Yu-taro",
+    "githubName": "yutailang0119",
     "githubToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "gitlabId": 01234567,
     "gitlabToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -74,4 +74,4 @@ This id is `gitlabId`.
 Finally add this id and token to `gitlabId`, `gitlabToken` on Users.json.
 
 ## License
-[taue](https://github.com/Yu-taro/taue) is released under the [Apache License 2.0](LICENSE).
+[taue](https://github.com/yutailang0119/taue) is released under the [Apache License 2.0](LICENSE).

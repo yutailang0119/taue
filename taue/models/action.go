@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/Yu-taro/taue/taue/db"
+	"github.com/yutailang0119/taue/taue/db"
 )
 
 type Action struct {
