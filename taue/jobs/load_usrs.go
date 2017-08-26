@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/Yu-taro/taue/taue/models"
+	"github.com/yutailang0119/taue/taue/models"
 )
 
 // loadUsersFromJSON load users profile from Users.json
